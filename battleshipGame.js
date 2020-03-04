@@ -80,10 +80,10 @@ function parseGuess(guess) {
         var column = guess.charAt(1)
 
         if(isNaN(row) || isNaN(column)) {
-            alert("Ups, to nie są współrzędne.")
+            alert("Ups, to nie są współrzędne!")
         }
         else if(row < 0 || row >= model.boardSize || column < 0 || column >= model.boardSize)  {
-
+            alert("Ups, pole za planszą!")
         }
         else {
             return row + column
@@ -92,20 +92,34 @@ function parseGuess(guess) {
     return null
 }
 
-controller.processGuess("A0")
+function handleFireButton() {
+    var guessInput = document.getElementById("guessInput")
+    var guess = guessInput.value
+    controller.processGuess(guess)
 
+    guessInput.value = ""
+}
 
-controller.processGuess("A6")
-controller.processGuess("B6")
-controller.processGuess("C6")
+function init() {
+    var fireButton = document.getElementById("fireButton")
+    fireButton.onclick = handleFireButton
+}
 
-controller.processGuess("C4")
-controller.processGuess("D4")
-controller.processGuess("E4")
+window.onload = init
 
-controller.processGuess("B0")
-controller.processGuess("B1")
-controller.processGuess("B2")
+// controller.processGuess("A0")
+
+// controller.processGuess("A6")
+// controller.processGuess("B6")
+// controller.processGuess("C6")
+
+// controller.processGuess("C4")
+// controller.processGuess("D4")
+// controller.processGuess("E4")
+
+// controller.processGuess("B0")
+// controller.processGuess("B1")
+// controller.processGuess("B2")
 
 // console.log(parseGuess("A0"))
 // console.log(parseGuess("B6"))
