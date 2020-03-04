@@ -19,9 +19,11 @@ var model = {
     shipLength: 3,
     shipsSunk: 0,
 
-    ships: [{locations: [0, 0, 0], hits: ["", "", ""]},
-            {locations: [0, 0, 0], hits: ["", "", ""]},
-            {locations: [0, 0, 0], hits: ["", "", ""]}],
+    ships: [
+        {locations: [0, 0, 0], hits: ["", "", ""]},
+        {locations: [0, 0, 0], hits: ["", "", ""]},
+        {locations: [0, 0, 0], hits: ["", "", ""]}
+    ],
 
     fire: function(guess) {
         for(var i = 0; i < this.numShips; i++) {
@@ -48,8 +50,8 @@ var model = {
             if(ship.hits[i] !== "hit") {
                 return false
             }
-            return true
         }
+        return true
     },
 
     generateShipLocations: function() {
