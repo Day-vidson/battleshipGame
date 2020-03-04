@@ -103,6 +103,15 @@ function handleFireButton() {
 function init() {
     var fireButton = document.getElementById("fireButton")
     fireButton.onclick = handleFireButton
+    guessInput.onkeypress = handleKeyPress
+}
+
+function handleKeyPress(e) {
+    var fireButton = document.getElementById("fireButton")
+    if(e.keyCode === 13) {
+        fireButton.click()
+        return false
+    }
 }
 
 window.onload = init
