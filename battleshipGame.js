@@ -13,11 +13,11 @@ var view = {
     },
     displaySunkedShips: function(msg) {
         var sunkedShipsArea = document.getElementById("sunkedShips")
-        sunkedShipsArea.innerHTML = msg
+        sunkedShipsArea.innerHTML = ("Zatopione statki: " + model.shipsSunk)
     },
-    displayRemainingShips: function(msg) {
+    displayRemainingShips: function() {
         var remainingShipsArea = document.getElementById("remainingShips")
-        remainingShipsArea.innerHTML = msg
+        remainingShipsArea.innerHTML = ("Pozostałe statki: " + model.shipsRemaining)
     },
     displayGuesses: function() {
         var guessesArea = document.getElementById("guesses")
@@ -31,6 +31,7 @@ var model = {
     shipLength: 3,
     shipsSunk: 0,
     shipsRemaining: 3,
+    userGuesses: [],
 
     ships: [
         {locations: [0, 0, 0], hits: ["", "", ""]},
@@ -50,9 +51,9 @@ var model = {
                 if(this.isSunk(ship)) {
                     view.displayMessage("Zatopiłeś mój okręt!")
                     this.shipsSunk++
-                    view.displaySunkedShips("Zatopione statki: " + this.shipsSunk)
+                    view.displaySunkedShips()
                     this.shipsRemaining--
-                    view.displayRemainingShips("Pozostałe statki: " + this.shipsRemaining)
+                    view.displayRemainingShips()
                     view.displayGuesses()
                 }
                 return true
@@ -144,7 +145,6 @@ var controller = {
 
 function parseGuess(guess) {
     var alphabet = ["A", "B", "C", "D", "E", "F", "G"]
-
     if(guess === null || guess.length !== 2) {
         alert("Ups, proszę wpisać literę i cyfrę.")
     }
@@ -159,7 +159,11 @@ function parseGuess(guess) {
         else if(row < 0 || row >= model.boardSize || column < 0 || column >= model.boardSize)  {
             alert("Ups, pole za planszą!")
         }
+        else if(model.userGuesses.includes(guess)) {
+            alert("Już tam strzelałeś!")
+        }
         else {
+            model.userGuesses.push(guess)
             return row + column
         }
     }
@@ -170,7 +174,6 @@ function handleFireButton() {
     var guessInput = document.getElementById("guessInput")
     var guess = guessInput.value
     controller.processGuess(guess)
-
     guessInput.value = ""
 }
 
@@ -183,8 +186,8 @@ function init() {
     model.generateShipLocations()
 
     view.displayGuesses()
-    view.displayRemainingShips("Pozostałe statki: " + model.shipsRemaining)
-    view.displaySunkedShips("Zatopione statki: " + model.shipsSunk)
+    view.displayRemainingShips()
+    view.displaySunkedShips()
 }
 
 function handleKeyPress(e) {
