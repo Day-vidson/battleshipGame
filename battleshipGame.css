@@ -42,3 +42,10 @@ form input {
 .miss {
     background: url("miss.png") no-repeat center center;
 }
+
+div#myMessageArea {
+    position: absolute;
+    top: 100px;
+    left: 0px;
+    color: rgb(83, 175, 19);
+}

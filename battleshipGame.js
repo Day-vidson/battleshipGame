@@ -10,9 +10,14 @@ var view = {
     displayMiss: function(location) {
         var cell = document.getElementById(location)
         cell.setAttribute("class", "miss")
+    },
+    displayMyMessage: function(msg) {
+        var myMessageArea = document.getElementById("myMessageArea")
+        myMessageArea.innerHTML = msg
     }
 }
-
+view.displayMyMessage("Gdzie to jest?")
+view.displayMessage("tak to bylo kiedys")
 var model = {
     boardSize: 7,
     numShips: 3,
