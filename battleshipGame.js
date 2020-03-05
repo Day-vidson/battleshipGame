@@ -18,6 +18,10 @@ var view = {
     displayRemainingShips: function(msg) {
         var remainingShipsArea = document.getElementById("remainingShips")
         remainingShipsArea.innerHTML = msg
+    },
+    displayGuesses: function(msg) {
+        var guessesArea = document.getElementById("guesses")
+        guessesArea.innerHTML = msg
     }
 }
 
@@ -42,16 +46,19 @@ var model = {
                 ship.hits[index] = "hit"
                 view.displayHit(guess)
                 view.displayMessage("TRAFIONY!")
+                view.displayGuesses("Liczba strzałów: " + controller.guesses)
                 if(this.isSunk(ship)) {
                     view.displayMessage("Zatopiłeś mój okręt!")
                     this.shipsSunk++
                     view.displaySunkedShips("Zatopione statki: " + this.shipsSunk)
                     this.shipsRemaining--
                     view.displayRemainingShips("Pozostałe statki: " + this.shipsRemaining)
+                    view.displayGuesses("Liczba strzałów: " + controller.guesses)
                 }
                 return true
             }
         }
+        view.displayGuesses("Liczba strzałów: " + controller.guesses)
         view.displayMiss(guess)
         view.displayMessage("Spudłowałeś.")
         return false
@@ -174,6 +181,10 @@ function init() {
     guessInput.onkeypress = handleKeyPress
 
     model.generateShipLocations()
+
+    view.displayGuesses("Liczba strzałów: " + controller.guesses)
+    view.displayRemainingShips("Pozostałe statki: " + model.shipsRemaining)
+    view.displaySunkedShips("Zatopione statki: " + model.shipsSunk)
 }
 
 function handleKeyPress(e) {
@@ -184,38 +195,5 @@ function handleKeyPress(e) {
     }
 }
 
-view.displayRemainingShips("Pozostałe statki: " + model.shipsRemaining)
-view.displaySunkedShips("Zatopione statki: " + model.shipsSunk)
+
 window.onload = init
-
-// controller.processGuess("A0")
-
-// controller.processGuess("A6")
-// controller.processGuess("B6")
-// controller.processGuess("C6")
-
-// controller.processGuess("C4")
-// controller.processGuess("D4")
-// controller.processGuess("E4")
-
-// controller.processGuess("B0")
-// controller.processGuess("B1")
-// controller.processGuess("B2")
-
-// console.log(parseGuess("A0"))
-// console.log(parseGuess("B6"))
-// console.log(parseGuess("G3"))
-// console.log(parseGuess("H0"))
-// console.log(parseGuess("A7"))
-
-// model.fire("06"); // hit
-// model.fire("16"); // hit
-// model.fire("26"); // hit
-
-// model.fire("34"); // hit
-// model.fire("24"); // hit
-// model.fire("44"); // hit
-
-// model.fire("12"); // hit
-// model.fire("11"); // hit
-// model.fire("10"); // hit
