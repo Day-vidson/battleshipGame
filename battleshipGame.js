@@ -11,18 +11,22 @@ var view = {
         var cell = document.getElementById(location)
         cell.setAttribute("class", "miss")
     },
-    displayMyMessage: function(msg) {
-        var myMessageArea = document.getElementById("myMessageArea")
-        myMessageArea.innerHTML = msg
+    displaySunkedShips: function(msg) {
+        var sunkedShipsArea = document.getElementById("sunkedShips")
+        sunkedShipsArea.innerHTML = msg
+    },
+    displayRemainingShips: function(msg) {
+        var remainingShipsArea = document.getElementById("remainingShips")
+        remainingShipsArea.innerHTML = msg
     }
 }
-view.displayMyMessage("Gdzie to jest?")
-view.displayMessage("tak to bylo kiedys")
+
 var model = {
     boardSize: 7,
     numShips: 3,
     shipLength: 3,
     shipsSunk: 0,
+    shipsRemaining: 3,
 
     ships: [
         {locations: [0, 0, 0], hits: ["", "", ""]},
@@ -41,6 +45,9 @@ var model = {
                 if(this.isSunk(ship)) {
                     view.displayMessage("Zatopiłeś mój okręt!")
                     this.shipsSunk++
+                    view.displaySunkedShips("Zatopione statki: " + this.shipsSunk)
+                    this.shipsRemaining--
+                    view.displayRemainingShips("Pozostałe statki: " + this.shipsRemaining)
                 }
                 return true
             }
@@ -177,6 +184,8 @@ function handleKeyPress(e) {
     }
 }
 
+view.displayRemainingShips("Pozostałe statki: " + model.shipsRemaining)
+view.displaySunkedShips("Zatopione statki: " + model.shipsSunk)
 window.onload = init
 
 // controller.processGuess("A0")
