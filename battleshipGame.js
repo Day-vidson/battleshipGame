@@ -19,9 +19,9 @@ var view = {
         var remainingShipsArea = document.getElementById("remainingShips")
         remainingShipsArea.innerHTML = msg
     },
-    displayGuesses: function(msg) {
+    displayGuesses: function() {
         var guessesArea = document.getElementById("guesses")
-        guessesArea.innerHTML = msg
+        guessesArea.innerHTML = ("Liczba strzałów: " + controller.guesses)
     }
 }
 
@@ -46,19 +46,19 @@ var model = {
                 ship.hits[index] = "hit"
                 view.displayHit(guess)
                 view.displayMessage("TRAFIONY!")
-                view.displayGuesses("Liczba strzałów: " + controller.guesses)
+                view.displayGuesses()
                 if(this.isSunk(ship)) {
                     view.displayMessage("Zatopiłeś mój okręt!")
                     this.shipsSunk++
                     view.displaySunkedShips("Zatopione statki: " + this.shipsSunk)
                     this.shipsRemaining--
                     view.displayRemainingShips("Pozostałe statki: " + this.shipsRemaining)
-                    view.displayGuesses("Liczba strzałów: " + controller.guesses)
+                    view.displayGuesses()
                 }
                 return true
             }
         }
-        view.displayGuesses("Liczba strzałów: " + controller.guesses)
+        view.displayGuesses()
         view.displayMiss(guess)
         view.displayMessage("Spudłowałeś.")
         return false
@@ -182,7 +182,7 @@ function init() {
 
     model.generateShipLocations()
 
-    view.displayGuesses("Liczba strzałów: " + controller.guesses)
+    view.displayGuesses()
     view.displayRemainingShips("Pozostałe statki: " + model.shipsRemaining)
     view.displaySunkedShips("Zatopione statki: " + model.shipsSunk)
 }
