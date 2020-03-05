@@ -150,8 +150,10 @@ function parseGuess(guess) {
     }
     else {
         firstChar = guess.charAt(0)
+        var firstChar = firstChar.toUpperCase()
         var row = alphabet.indexOf(firstChar)
         var column = guess.charAt(1)
+        var guess = firstChar + column
 
         if(isNaN(row) || isNaN(column)) {
             alert("Ups, to nie są współrzędne!")
@@ -159,12 +161,15 @@ function parseGuess(guess) {
         else if(row < 0 || row >= model.boardSize || column < 0 || column >= model.boardSize)  {
             alert("Ups, pole za planszą!")
         }
-        else if(model.userGuesses.includes(guess)) {
-            alert("Już tam strzelałeś!")
-        }
         else {
-            model.userGuesses.push(guess)
-            return row + column
+            if(model.userGuesses.includes(guess)) {
+                alert("Już tam strzelałeś!")
+                return null
+            }
+            else {
+                model.userGuesses.push((guess))
+                return row + column
+            }
         }
     }
     return null
